@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  postgres_service:
+    image: ${POSTGRES_IMAGE_VERSION}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    restart: always
+    command: -c 'listen_addresses=*'
+    networks:
+      - database_network
+
+  postgres_test_service:
+    image: ${POSTGRES_IMAGE_VERSION}
+    ports:
+      - "${POSTGRES_TEST_PORT}:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_TEST_DATABASE}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    restart: always
+    command: -c 'listen_addresses=*'
+    networks:
+      - database_network
+
+networks:
+  database_network:
+    driver: bridge
