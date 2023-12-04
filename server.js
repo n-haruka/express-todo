@@ -31,6 +31,9 @@ pool.connect((err, client, release) => {
   });
 });
 
+// ビューエンジンを設定します。
+app.set("view engine", "ejs");
+
 // morgan ミドルウェアを設定します。'dev' はログのフォーマットです。
 app.use(morgan("dev"));
 
@@ -43,6 +46,11 @@ app.get("/some-route", (req, res) => {
 app.get("/endpoint", (req, res) => {
   const endpoints = listEndpoints(app);
   res.json(endpoints);
+});
+
+// "/" のときindexページを表示
+app.get("/", function (req, res) {
+  res.render("pages/index");
 });
 
 app.listen(port, () => {
