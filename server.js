@@ -1,15 +1,20 @@
 const { Pool } = require("pg");
 const express = require("express");
 const listEndpoints = require("express-list-endpoints");
+const dotenv = require("dotenv");
+
+// Load Environment Variables
+dotenv.config();
+
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3001;
 
 const pool = new Pool({
-  user: "dev_user", // Your database user
-  host: "localhost", // Your database host
-  database: "development_db", // Your database name
-  password: "dev_password", // Your database password
-  port: 5432, // Your database port
+  user: process.env.DEVELOPE_DB_USER, // Your database user
+  host: process.env.DEVELOPE_DB_HOST, // Your database host
+  database: process.env.DEVELOPE_DB_NAME, // Your database name
+  password: process.env.DEVELOPE_DB_PASSWORD, // Your database password
+  port: process.env.DEVELOPE_DB_PORT, // Your database port
 });
 
 pool.connect((err, client, release) => {
