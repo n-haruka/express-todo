@@ -1,5 +1,6 @@
 const { Pool } = require("pg");
 const express = require("express");
+const morgan = require("morgan");
 const listEndpoints = require("express-list-endpoints");
 const dotenv = require("dotenv");
 
@@ -29,6 +30,9 @@ pool.connect((err, client, release) => {
     console.log(result.rows);
   });
 });
+
+// morgan ミドルウェアを設定します。'dev' はログのフォーマットです。
+app.use(morgan("dev"));
 
 // その他のルート定義をここに追加
 app.get("/some-route", (req, res) => {
