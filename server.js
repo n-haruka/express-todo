@@ -1,4 +1,8 @@
 const { Pool } = require("pg");
+const express = require("express");
+const listEndpoints = require("express-list-endpoints");
+const app = express();
+const port = 3000;
 
 const pool = new Pool({
   user: "dev_user", // Your database user
@@ -19,4 +23,19 @@ pool.connect((err, client, release) => {
     }
     console.log(result.rows);
   });
+});
+
+// その他のルート定義をここに追加
+app.get("/some-route", (req, res) => {
+  res.send("Some other route");
+});
+
+// エンドポイント一覧を返すルート
+app.get("/endpoint", (req, res) => {
+  const endpoints = listEndpoints(app);
+  res.json(endpoints);
+});
+
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
 });
