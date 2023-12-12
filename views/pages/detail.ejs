@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body>
+    <header><%- include('../partials/header'); %></header>
+
+    <main>
+      <div>
+        <h1>ToDo</h1>
+        <% if (selected_todo) { %>
+        <h2>タスクの詳細</h2>
+        <span>タスクID：<%= selected_todo.id %></span><br />
+        <span>作成ユーザID：<%= selected_todo.user_id %></span><br />
+        <span
+          >タイトル：
+          <form action="/update_todo/<%= selected_todo.id %>" method="post">
+            <input
+              type="text"
+              name="title"
+              value="<%= selected_todo.title %>"
+            /><button type="submit">更新</button>
+          </form></span
+        ><br />
+        <span>作成日時：<%= selected_todo.created_at %></span><br />
+        <span>更新日時：<%= selected_todo.updated_at %></span>
+        <% } %>
+      </div>
+    </main>
+    <a href="/delete_todo/<%= selected_todo.id %>">このToDoを削除する</a>
+    <a href="/">戻る</a>
+
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
+</html>
