@@ -15,9 +15,10 @@
         <span>作成ユーザID：<%= selected_todo.user_id %></span><br />
         <span
           >タイトル：
-          <form action="/update_todo/<%= selected_todo.id %>" method="post">
+          <form id="update_todo_form" data-id="<%= selected_todo.id %>">
             <input
               type="text"
+              id="title"
               name="title"
               value="<%= selected_todo.title %>"
             /><button type="submit">更新</button>
@@ -28,9 +29,12 @@
         <% } %>
       </div>
     </main>
-    <a href="/delete_todo/<%= selected_todo.id %>">このToDoを削除する</a>
+    <form id="delete_todo_form" data-id="<%= selected_todo.id %>">
+      <button type="submit">このToDoを削除する</button>
+    </form>
     <a href="/">戻る</a>
 
     <footer><%- include('../partials/footer'); %></footer>
+    <script src="/detail.js"></script>
   </body>
 </html>

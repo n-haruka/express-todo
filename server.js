@@ -25,6 +25,9 @@ app.use(
   })
 );
 
+// publicディレクトリ内のファイルを静的ファイルとして提供
+app.use(express.static("public"));
+
 // エンドポイント一覧を返すルート
 app.get("/endpoint", (req, res) => {
   const endpoints = listEndpoints(app);
@@ -41,7 +44,7 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.get("/todo_detail/:id", async (req, res) => {
+app.get("/todo/:id", async (req, res) => {
   try {
     const result = await todo_model.fetch_selected_todo(req.params.id);
     res.status(200).render("pages/detail", { selected_todo: result.rows[0] });
@@ -50,7 +53,7 @@ app.get("/todo_detail/:id", async (req, res) => {
   }
 });
 
-app.get("/delete_todo/:id", async (req, res) => {
+app.delete("/todo/:id", async (req, res) => {
   try {
     await todo_model.delete_selected_todo(req.params.id);
     res.status(200).redirect("/");
@@ -59,7 +62,7 @@ app.get("/delete_todo/:id", async (req, res) => {
   }
 });
 
-app.post("/update_todo/:id", async (req, res) => {
+app.put("/todo/:id", async (req, res) => {
   try {
     const { title } = req.body;
     const selected_todo = await todo_model.fetch_selected_todo(req.params.id);
@@ -74,7 +77,7 @@ app.post("/update_todo/:id", async (req, res) => {
   }
 });
 
-app.post("/create_todo", async (req, res) => {
+app.post("/todo", async (req, res) => {
   try {
     const { user_id, title } = req.body;
     await todo_model.create_todo(user_id, title);

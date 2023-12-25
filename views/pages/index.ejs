@@ -10,7 +10,7 @@
       <div>
         <h1>ToDo</h1>
         <h2>タスクの追加</h2>
-        <form action="/create_todo" method="post">
+        <form action="/todo" method="post">
           ユーザID<select name="user_id">
             <option value="">ユーザを選択してください</option>
             <% for(let user of users){ %>
@@ -23,7 +23,7 @@
         <h2>登録済みタスク</h2>
         <% for(let todo of todos){ %>
         <li>
-          <a href="/todo_detail/<%= todo.id %>">
+          <a href="/todo/<%= todo.id %>">
             <span>ユーザID：<%= todo.user_id %></span><br /><span
               >ToDoタイトル：<%= todo.title %></span
             >
