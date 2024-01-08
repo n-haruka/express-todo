@@ -1,4 +1,4 @@
-const pool = require("../db_config");
+const pool = require("../db/db_config");
 
 exports.fetch_all_todos = () => {
   const query = "SELECT * FROM todo.todos";
