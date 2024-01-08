@@ -13,6 +13,9 @@ const port = process.env.PORT || 3000;
 // ビューエンジンを設定します。
 app.set("view engine", "ejs");
 
+// viewsディレクトリを指定
+app.set("views", "src/views");
+
 // morgan ミドルウェアを設定します。'dev' はログのフォーマットです。
 app.use(morgan("dev"));
 
